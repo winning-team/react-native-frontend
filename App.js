@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Button } from "react-native";
 import {
   VictoryLine,
   VictoryGroup,
@@ -445,6 +445,13 @@ export default class App extends React.Component {
               )}
           />
         </VictoryGroup>
+        <Button
+          title='Yeet'
+          color='green'
+          onPress={() => {
+            alert("Yolo swag 420 blaze it 69");
+          }}
+        />
       </View>
     );
   }
