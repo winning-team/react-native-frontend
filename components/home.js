@@ -1,29 +1,52 @@
 import React from "react";
 import { StyleSheet, View, Button, Text } from "react-native";
 import { Actions } from "react-native-router-flux";
+import styled from "styled-components";
 
 export default class Home extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
+      <Container>
         <Text>Hello there</Text>
-        <Button
-          title='Yeet'
-          color='green'
-          onPress={() => {
-            Actions.push("Map");
-          }}
-        />
-      </View>
+        <ButtonsView>
+          <ButtonView>
+            <Button
+              title='Yeet'
+              color='green'
+              onPress={() => {
+                Actions.push("Map");
+              }}
+            />
+          </ButtonView>
+          <ButtonView>
+            <Button
+              title='Login'
+              color='green'
+              onPress={() => {
+                Actions.push("Login");
+              }}
+            />
+          </ButtonView>
+        </ButtonsView>
+      </Container>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#f5fcff"
-  }
-});
+const Container = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5fcff;
+`;
+
+const ButtonView = styled.View`
+  width: 90%;
+  margin: 10px;
+`;
+
+const ButtonsView = styled.View`
+  width: 100%;
+  flex: 1;
+  height: 50px;
+`;
