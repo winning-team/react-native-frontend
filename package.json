@@ -12,8 +12,13 @@
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-gesture-handler": "^1.6.0",
+    "react-native-reanimated": "^1.7.0",
+    "react-native-router-flux": "^4.2.0",
+    "react-native-screens": "^2.2.0",
     "react-native-svg": "9.13.3",
     "react-native-web": "^0.12.2",
+    "react-router-native": "^5.1.2",
     "victory-native": "^34.1.0"
   },
   "devDependencies": {
