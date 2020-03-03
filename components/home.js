@@ -23,6 +23,16 @@ export default class Home extends React.Component {
         </ButtonView>
         <ButtonView>
           <Button
+            title='Game'
+            titleStyle={styles.title}
+            buttonStyle={styles.buttonStyle}
+            onPress={() => {
+              Actions.Game();
+            }}
+          />
+        </ButtonView>
+        <ButtonView>
+          <Button
             title='Login'
             buttonStyle={styles.buttonStyle}
             titleStyle={styles.title}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
+import Dpad from "../assets/dpad.svg"
 import styled from "styled-components";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
