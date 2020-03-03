@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import { Input, Button } from 'react-native-elements';
-import { background } from '../styles';
+import { background, buttonBg, lightGreen, brightGreen } from '../styles';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -37,32 +37,42 @@ export default function Login() {
 
   return (
     <Container>
+      {message !== 'start' && <Text style={styles.message}>{message}</Text>}
       <View style={styles.inputView}>
-        {message !== 'start' && <Text>{message}</Text>}
         <Input
           onChangeText={text => setUsername(text)}
+          labelStyle={styles.label}
+          label='Username'
           placeholder='Username'
-          leftIcon={{ type: 'font-awesome', name: 'user' }}
+          placeholderTextColor={lightGreen}
+          leftIcon={{ type: 'font-awesome', name: 'user', color: lightGreen }}
           inputStyle={styles.input}
         />
         <Input
           onChangeText={text => setPassword1(text)}
-          leftIcon={{ type: 'font-awesome', name: 'lock' }}
+          leftIcon={{ type: 'font-awesome', name: 'lock', color: lightGreen }}
+          labelStyle={styles.label}
+          label='Password'
           placeholder='Password'
+          placeholderTextColor={lightGreen}
           secureTextEntry={true}
           inputStyle={styles.input}
         />
         <Input
           onChangeText={text => setPassword2(text)}
+          label='Re-enter password'
+          labelStyle={styles.label}
           placeholder='Re-enter password'
-          leftIcon={{ type: 'font-awesome', name: 'lock' }}
+          leftIcon={{ type: 'font-awesome', name: 'lock', color: lightGreen }}
+          placeholderTextColor={lightGreen}
           secureTextEntry={true}
           inputStyle={styles.input}
         />
         <Button
           title='Register'
           onPress={() => handleSubmit()}
-          buttonStyle={styles.button}
+          buttonStyle={styles.buttonStyle}
+          titleStyle={styles.title}
         />
       </View>
     </Container>
@@ -78,6 +88,7 @@ const Container = styled.View`
 
 const styles = StyleSheet.create({
   input: {
+    color: lightGreen,
     paddingLeft: 20,
   },
   button: {
@@ -85,5 +96,18 @@ const styles = StyleSheet.create({
   },
   inputView: {
     width: '80%',
+  },
+  buttonStyle: {
+    marginTop: 20,
+    backgroundColor: buttonBg,
+  },
+  title: {
+    color: brightGreen,
+  },
+  label: {
+    color: brightGreen,
+  },
+  message: {
+    color: brightGreen,
   },
 });
