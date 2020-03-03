@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { MapView, Home, Login, Register } from "./components";
+import { MapView, Home, Login, Register, Game } from "./components";
 import * as SecureStore from "expo-secure-store";
 import { Scene, Router, Actions, Stack } from "react-native-router-flux";
 import { StyleSheet } from "react-native";
@@ -42,6 +42,13 @@ export default function App() {
           key='Register'
           component={Register}
           title='Register'
+          titleStyle={styles.title}
+          navigationBarStyle={styles.navbar}
+        />
+        <Scene
+          key='Game'
+          component={Game}
+          title='Game'
           titleStyle={styles.title}
           navigationBarStyle={styles.navbar}
         />
