@@ -4984,12 +4984,6 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-<<<<<<< HEAD
-react-native-autogrow-input@^0.1.1:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/react-native-autogrow-input/-/react-native-autogrow-input-0.1.2.tgz#39300933b4c13ef0c458983d3daa46d58407a503"
-  integrity sha1-OTAJM7TBPvDEWJg9PapG1YQHpQM=
-=======
 react-native-elements@^1.2.7:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-1.2.7.tgz#1eca2db715c41722aeb67aea62bd2a4621adb134"
@@ -5003,7 +4997,6 @@ react-native-elements@^1.2.7:
     prop-types "^15.7.2"
     react-native-ratings "^6.3.0"
     react-native-status-bar-height "^2.2.0"
->>>>>>> 63432400e0c4a9c4a54e6423ddbb9466abd72172
 
 react-native-gesture-handler@^1.6.0:
   version "1.6.0"
@@ -5015,12 +5008,6 @@ react-native-gesture-handler@^1.6.0:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
-<<<<<<< HEAD
-react-native-keyboard-spacer@^0.3.1:
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/react-native-keyboard-spacer/-/react-native-keyboard-spacer-0.3.1.tgz#9580297ebfd078202dc4c65303d29cda35de67f1"
-  integrity sha1-lYApfr/QeCAtxMZTA9Kc2jXeZ/E=
-=======
 react-native-ratings@^6.3.0:
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/react-native-ratings/-/react-native-ratings-6.5.0.tgz#a1606ccba3c5b54eec8e6cfa4765a45cf0e4ab8d"
@@ -5028,7 +5015,6 @@ react-native-ratings@^6.3.0:
   dependencies:
     lodash "^4.17.4"
     prop-types "^15.5.10"
->>>>>>> 63432400e0c4a9c4a54e6423ddbb9466abd72172
 
 react-native-reanimated@^1.7.0:
   version "1.7.0"
