@@ -10,7 +10,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "expo": "^36.0.2",
-    "expo-secure-store": "~8.0.0",
+    "expo-secure-store": "^8.0.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
@@ -27,7 +27,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
-    "babel-preset-expo": "~8.0.0"
+    "babel-preset-expo": "~8.0.0",
+    "react-native-svg-transformer": "^0.14.3"
   },
   "private": true
 }

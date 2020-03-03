@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import Dpad from "../assets/dpad.svg"
+import { StyleSheet, View, Text, TouchableHighlight } from "react-native";
 import { VictoryLine, VictoryGroup, VictoryScatter } from "victory-native";
 import { axiosWithAuth } from "./axiosWithAuth";
 import { background } from "../styles";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function MapView() {
   const [data, setData] = useState(null);
@@ -66,7 +68,34 @@ export default function MapView() {
           )}
         />
       </VictoryGroup>
-    </View>
+      <View style={styles.container}>
+        <View style={styles.dpad}>
+          <Dpad width={250} height={250}/>
+        </View>
+        <View style={styles.dpad_overlay}>
+          {/* up */}
+          <TouchableHighlight onPress={() => ("")} style={styles.dpad_button} underlayColor='rgba(0,0,0,0.2)'>
+            <View/>
+          </TouchableHighlight>
+          <View style={styles.mid_row}>
+            {/* left */}
+            <TouchableHighlight onPress={() => ("")} style={styles.dpad_button} underlayColor='rgba(0,0,0,0.2)'>
+            <View/>
+          </TouchableHighlight>
+            {/* spacing */}
+            <View style={styles.dpad_button}/>
+            {/* right */}
+            <TouchableHighlight onPress={() => ("")} style={styles.dpad_button} underlayColor='rgba(0,0,0,0.2)'>
+            <View/>
+          </TouchableHighlight>
+          </View>
+          {/* down */}
+          <TouchableHighlight onPress={() => ("")} style={styles.dpad_button} underlayColor='rgba(0,0,0,0.2)'>
+            <View/>
+          </TouchableHighlight>
+        </View>
+       </View>
+      </View>
   );
 }
 
@@ -76,5 +105,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: background
-  }
+  },
+  dpad: {
+    position: "absolute",
+    bottom: -37,
+  },
+  dpad_overlay:{
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 3.1
+  },
+  dpad_button: {
+    height: 56,
+    width: 56,
+  },
+  mid_row: {
+    flexDirection: 'row',
+  },
 });
