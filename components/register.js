@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Button, Text, TextInput } from 'react-native';
 import styled from 'styled-components';
 
-export default function Login() {
+export default function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
   return (
     <Container>
-      <Text>Log in</Text>
+      <Text>Register</Text>
       <StyledInput onChangeText={text => setUsername(text)} />
       <StyledInput onChangeText={text => setPassword(text)} />
       <Button title='Submit' color='blue' />

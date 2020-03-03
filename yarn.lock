@@ -4629,6 +4629,11 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-native-autogrow-input@^0.1.1:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-autogrow-input/-/react-native-autogrow-input-0.1.2.tgz#39300933b4c13ef0c458983d3daa46d58407a503"
+  integrity sha1-OTAJM7TBPvDEWJg9PapG1YQHpQM=
+
 react-native-gesture-handler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.6.0.tgz#e9a4e1d0c7ac21eb0d6b6ec013e73f9c0c33a629"
@@ -4638,6 +4643,11 @@ react-native-gesture-handler@^1.6.0:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.4"
     prop-types "^15.7.2"
+
+react-native-keyboard-spacer@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/react-native-keyboard-spacer/-/react-native-keyboard-spacer-0.3.1.tgz#9580297ebfd078202dc4c65303d29cda35de67f1"
+  integrity sha1-lYApfr/QeCAtxMZTA9Kc2jXeZ/E=
 
 react-native-reanimated@^1.7.0:
   version "1.7.0"

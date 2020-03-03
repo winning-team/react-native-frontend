@@ -1,7 +1,7 @@
-import React from "react";
-import { StyleSheet, View, Button, Text } from "react-native";
-import { Actions } from "react-native-router-flux";
-import styled from "styled-components";
+import React from 'react';
+import { StyleSheet, View, Button, Text } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import styled from 'styled-components';
 
 export default class Home extends React.Component {
   render() {
@@ -14,7 +14,7 @@ export default class Home extends React.Component {
               title='Yeet'
               color='green'
               onPress={() => {
-                Actions.push("Map");
+                Actions.push('Map');
               }}
             />
           </ButtonView>
@@ -23,7 +23,25 @@ export default class Home extends React.Component {
               title='Login'
               color='green'
               onPress={() => {
-                Actions.push("Login");
+                Actions.push('Login');
+              }}
+            />
+          </ButtonView>
+          <ButtonView>
+            <Button
+              title='Register'
+              color='green'
+              onPress={() => {
+                Actions.push('Register');
+              }}
+            />
+          </ButtonView>
+          <ButtonView>
+            <Button
+              title='Message'
+              color='green'
+              onPress={() => {
+                Actions.push('Message');
               }}
             />
           </ButtonView>
