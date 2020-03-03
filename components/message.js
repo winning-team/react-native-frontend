@@ -25,6 +25,7 @@ export default function Message() {
 
 const Container = styled.View`
   background-color: #f5fcff;
+  flex: 1;
   flex-direction: row;
 `;
 

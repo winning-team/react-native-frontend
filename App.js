@@ -1,34 +1,67 @@
-import React from 'react';
-import { StyleSheet, View, Button } from 'react-native';
-import Map from './components/map';
-import Home from './components/home';
-import Login from './components/login';
-import Register from './components/register';
-import Message from './components/message';
-// import { NativeRouter, Route, Link } from "react-router-native";
+import React, { useEffect } from 'react';
+import { MapView, Home, Login, Register, Game } from './components';
+import * as SecureStore from 'expo-secure-store';
 import { Scene, Router, Actions, Stack } from 'react-native-router-flux';
+import { StyleSheet } from 'react-native';
+import { background } from './styles';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <Router>
-        <Stack key='root'>
-          <Scene key='Home' component={Home} title='Home' />
-          <Scene key='Map' component={Map} title='Mapperdoodle' />
-          <Scene key='Register' component={Register} title='Register' />
-          <Scene key='Login' component={Login} title='Login' />
-          <Scene key='Message' component={Message} title='Message' />
-        </Stack>
-      </Router>
-    );
-  }
+export default function App() {
+  useEffect(() => {
+    SecureStore.getItemAsync('token').then(token => {
+      if (!token) {
+        Actions.Login();
+      }
+    });
+  });
+
+  return (
+    <Router>
+      <Stack key='root'>
+        <Scene
+          key='Home'
+          component={Home}
+          title='Home'
+          titleStyle={styles.title}
+          navigationBarStyle={styles.navbar}
+        />
+        <Scene
+          key='Map'
+          component={MapView}
+          title='Map'
+          titleStyle={styles.title}
+          navigationBarStyle={styles.navbar}
+        />
+        <Scene
+          key='Login'
+          component={Login}
+          title='Login'
+          titleStyle={styles.title}
+          navigationBarStyle={styles.navbar}
+        />
+        <Scene
+          key='Register'
+          component={Register}
+          title='Register'
+          titleStyle={styles.title}
+          navigationBarStyle={styles.navbar}
+        />
+        <Scene
+          key='Game'
+          component={Game}
+          title='Game'
+          titleStyle={styles.title}
+          navigationBarStyle={styles.navbar}
+        />
+      </Stack>
+    </Router>
+  );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#f5fcff',
+  navbar: {
+    backgroundColor: background,
+  },
+  title: {
+    color: '#199515',
   },
 });
