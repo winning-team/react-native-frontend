@@ -3,7 +3,7 @@ import { StyleSheet, Text } from "react-native";
 import { Actions } from "react-native-router-flux";
 import styled from "styled-components";
 import * as SecureStore from "expo-secure-store";
-import { background, buttonBg } from "../styles";
+import { background, buttonBg, brightGreen } from "../styles";
 import { Button } from "react-native-elements";
 
 export default class Home extends React.Component {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20
   },
   title: {
-    color: "#199515"
+    color: brightGreen
   },
   buttonStyle: {
     backgroundColor: buttonBg
@@ -86,6 +86,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 30,
-    color: "#199515"
+    color: brightGreen
   }
 });

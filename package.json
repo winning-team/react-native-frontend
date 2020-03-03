@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "expo": "^36.0.2",
     "expo-secure-store": "~8.0.0",
+    "lottie-react-native": "~2.6.1",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",

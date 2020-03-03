@@ -5,7 +5,7 @@ import axios from "axios";
 import * as SecureStore from "expo-secure-store";
 import { axiosWithAuth } from "./axiosWithAuth";
 import { Input, Button } from "react-native-elements";
-import { background } from "../styles";
+import { background, buttonBg, lightGreen, brightGreen } from "../styles";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -51,24 +51,31 @@ export default function Login() {
 
   return (
     <Container>
-      {message !== "start" && <Text>{message}</Text>}
+      {message !== "start" && <Text style={styles.message}>{message}</Text>}
       <View style={styles.inputView}>
         <Input
           onChangeText={text => setUsername(text)}
+          label='Username'
+          labelStyle={styles.label}
           placeholder='Username'
-          leftIcon={{ type: "font-awesome", name: "user" }}
+          placeholderTextColor={lightGreen}
+          leftIcon={{ type: "font-awesome", name: "user", color: lightGreen }}
           inputStyle={styles.input}
         />
         <Input
           onChangeText={text => setPassword(text)}
+          label='Password'
+          labelStyle={styles.label}
           placeholder='Password'
-          leftIcon={{ type: "font-awesome", name: "lock" }}
+          placeholderTextColor={lightGreen}
+          leftIcon={{ type: "font-awesome", name: "lock", color: lightGreen }}
           inputStyle={styles.input}
         />
         <Button
           title='Log in'
           onPress={() => handleSubmit()}
-          buttonStyle={styles.button}
+          buttonStyle={styles.buttonStyle}
+          titleStyle={styles.title}
         />
       </View>
     </Container>
@@ -82,14 +89,9 @@ const Container = styled.View`
   background-color: ${background};
 `;
 
-const StyledInput = styled.TextInput`
-  padding: 10px;
-  width: 200px;
-  border: 1px solid red;
-`;
-
 const styles = StyleSheet.create({
   input: {
+    color: lightGreen,
     paddingLeft: 20
   },
   button: {
@@ -97,5 +99,18 @@ const styles = StyleSheet.create({
   },
   inputView: {
     width: "80%"
+  },
+  title: {
+    color: brightGreen
+  },
+  label: {
+    color: brightGreen
+  },
+  buttonStyle: {
+    marginTop: 20,
+    backgroundColor: buttonBg
+  },
+  message: {
+    color: brightGreen
   }
 });

@@ -3,7 +3,7 @@ import { MapView, Home, Login, Register } from "./components";
 import * as SecureStore from "expo-secure-store";
 import { Scene, Router, Actions, Stack } from "react-native-router-flux";
 import { StyleSheet } from "react-native";
-import { background } from "./styles";
+import { background, brightGreen } from "./styles";
 
 export default function App() {
   useEffect(() => {
@@ -16,16 +16,18 @@ export default function App() {
 
   return (
     <Router>
-      <Stack key='root'>
+      <Stack key='root' headerLayoutPreset='center'>
         <Scene
           key='Home'
           component={Home}
           title='Home'
+          hideNavBar={true}
           titleStyle={styles.title}
           navigationBarStyle={styles.navbar}
         />
         <Scene
           key='Map'
+          leftButtonStyle={{ color: "white" }}
           component={MapView}
           title='Map'
           titleStyle={styles.title}
@@ -55,6 +57,6 @@ const styles = StyleSheet.create({
     backgroundColor: background
   },
   title: {
-    color: "#199515"
+    color: brightGreen
   }
 });
