@@ -3,56 +3,42 @@ import { StyleSheet, View, Text, TextInput } from "react-native";
 import styled from "styled-components";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
-import { axiosWithAuth } from "./axiosWithAuth";
 import { Input, Button } from "react-native-elements";
 import { background } from "../styles";
 
 export default function Login() {
   const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [password2, setPassword2] = useState("");
   const [message, setMessage] = useState("start");
 
   const handleSubmit = async () => {
     try {
+      if (!(username && password1 === password2)) {
+        throw "invalid username/passwords";
+      }
       const { data } = await axios.post(
-        "https://83f4615b.ngrok.io/api/login/",
+        "https://83f4615b.ngrok.io/api/registration/",
         {
           username,
-          password
+          password1,
+          password2
         }
       );
       if (data && data.key) {
         SecureStore.setItemAsync("token", data.key);
-        setMessage("Login successful :)");
-      } else {
-        throw "invalid username/password";
+        setMessage("Registration successful :)");
       }
     } catch (err) {
-      setMessage("Invalid username/password :(");
       console.log(err);
-    }
-  };
-
-  const getToken = async () => {
-    const response = await SecureStore.getItemAsync("token");
-    console.log("yeet", response);
-  };
-
-  const init = async () => {
-    try {
-      const axiosFunction = await axiosWithAuth();
-      const { data } = await axiosFunction.get("api/adv/init");
-      console.log(data);
-    } catch (err) {
-      console.log(err);
+      setMessage("Registration unsuccessful :(");
     }
   };
 
   return (
     <Container>
-      {message !== "start" && <Text>{message}</Text>}
       <View style={styles.inputView}>
+        {message !== "start" && <Text>{message}</Text>}
         <Input
           onChangeText={text => setUsername(text)}
           placeholder='Username'
@@ -60,13 +46,21 @@ export default function Login() {
           inputStyle={styles.input}
         />
         <Input
-          onChangeText={text => setPassword(text)}
-          placeholder='Password'
+          onChangeText={text => setPassword1(text)}
           leftIcon={{ type: "font-awesome", name: "lock" }}
+          placeholder='Password'
+          secureTextEntry={true}
+          inputStyle={styles.input}
+        />
+        <Input
+          onChangeText={text => setPassword2(text)}
+          placeholder='Re-enter password'
+          leftIcon={{ type: "font-awesome", name: "lock" }}
+          secureTextEntry={true}
           inputStyle={styles.input}
         />
         <Button
-          title='Log in'
+          title='Register'
           onPress={() => handleSubmit()}
           buttonStyle={styles.button}
         />
@@ -82,18 +76,12 @@ const Container = styled.View`
   background-color: ${background};
 `;
 
-const StyledInput = styled.TextInput`
-  padding: 10px;
-  width: 200px;
-  border: 1px solid red;
-`;
-
 const styles = StyleSheet.create({
   input: {
     paddingLeft: 20
   },
   button: {
-    marginTop: 40
+    margin: 20
   },
   inputView: {
     width: "80%"
