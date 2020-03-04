@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { MapView, Home, Login, Register, Game } from "./components";
-import * as SecureStore from "expo-secure-store";
-import { Scene, Router, Actions, Stack } from "react-native-router-flux";
-import { StyleSheet } from "react-native";
-import { background, brightGreen } from "./styles";
+import React, { useEffect } from 'react';
+import { MapView, Home, Login, Register, Game, Message } from './components';
+import * as SecureStore from 'expo-secure-store';
+import { Scene, Router, Actions, Stack } from 'react-native-router-flux';
+import { StyleSheet } from 'react-native';
+import { background, brightGreen } from './styles';
 
 export default function App() {
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function App() {
         />
         <Scene
           key='Map'
-          leftButtonStyle={{ color: "white" }}
+          leftButtonStyle={{ color: 'white' }}
           component={MapView}
           title='Map'
           titleStyle={styles.title}
@@ -64,11 +64,6 @@ const styles = StyleSheet.create({
     backgroundColor: background,
   },
   title: {
-<<<<<<< HEAD
-    color: '#199515',
+    color: brightGreen,
   },
-=======
-    color: brightGreen
-  }
->>>>>>> 87e10b2d0df98e5dba7cf7ca1ab26b3509f4657a
 });

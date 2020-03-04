@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
-import Dpad from "../assets/dpad.svg";
+import React, { useEffect, useState } from 'react';
+import Dpad from '../assets/dpad.svg';
 import {
   StyleSheet,
   View,
   Text,
   TouchableHighlight,
-  Dimensions
-} from "react-native";
-import { axiosWithAuth } from "./axiosWithAuth";
-import { background, brightGreen } from "../styles";
+  Dimensions,
+} from 'react-native';
+import { axiosWithAuth } from './axiosWithAuth';
+import { background, brightGreen } from '../styles';
+import { Message } from './message';
 
 export default function Game() {
   const [roomDescription, setRoomDescription] = useState(null);
@@ -19,8 +20,8 @@ export default function Game() {
     console.log(dir);
     axiosWithAuth().then(axios => {
       axios
-        .post("api/adv/move/", {
-          direction: dir
+        .post('api/adv/move/', {
+          direction: dir,
         })
         .then(function({ data }) {
           if (data) {
@@ -49,44 +50,43 @@ export default function Game() {
           <Text style={styles.gameError}>Error: {errorMessage}</Text>
         )}
       </View>
+      <View>
+        <Message />
+      </View>
       <View style={styles.dpad}>
         <Dpad width={250} height={250} />
       </View>
       <View style={styles.dpad_overlay}>
         {/* up */}
         <TouchableHighlight
-          onPress={() => Move("n")}
+          onPress={() => Move('n')}
           style={styles.dpad_button}
-          underlayColor='rgba(0,0,0,0.2)'
-        >
+          underlayColor='rgba(0,0,0,0.2)'>
           <View />
         </TouchableHighlight>
         <View style={styles.mid_row}>
           {/* left */}
           <TouchableHighlight
-            onPress={() => Move("w")}
+            onPress={() => Move('w')}
             style={styles.dpad_button}
-            underlayColor='rgba(0,0,0,0.2)'
-          >
+            underlayColor='rgba(0,0,0,0.2)'>
             <View />
           </TouchableHighlight>
           {/* spacing */}
           <View style={styles.dpad_button} />
           {/* right */}
           <TouchableHighlight
-            onPress={() => Move("e")}
+            onPress={() => Move('e')}
             style={styles.dpad_button}
-            underlayColor='rgba(0,0,0,0.2)'
-          >
+            underlayColor='rgba(0,0,0,0.2)'>
             <View />
           </TouchableHighlight>
         </View>
         {/* down */}
         <TouchableHighlight
-          onPress={() => Move("s")}
+          onPress={() => Move('s')}
           style={styles.dpad_button}
-          underlayColor='rgba(0,0,0,0.2)'
-        >
+          underlayColor='rgba(0,0,0,0.2)'>
           <View />
         </TouchableHighlight>
       </View>
@@ -94,49 +94,52 @@ export default function Game() {
   );
 }
 
-const width = Dimensions.get("window").width;
+const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-start",
-    backgroundColor: background
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    backgroundColor: background,
   },
   game_response_text: {
     width: width - 32,
     padding: 8,
     marginTop: 32,
-    borderBottomColor: "black",
-    textAlignVertical: "top",
+    borderBottomColor: 'black',
+    textAlignVertical: 'top',
     borderWidth: 3,
     borderRadius: 10,
-    borderStyle: "solid"
+    borderStyle: 'solid',
+  },
+  game_message_text: {
+    flex: 3,
   },
   dpad: {
-    position: "absolute",
+    position: 'absolute',
     bottom: -37,
-    left: 0
+    left: 0,
   },
   dpad_overlay: {
-    position: "absolute",
+    position: 'absolute',
     left: 39,
     bottom: 31,
-    justifyContent: "center",
-    alignItems: "center",
-    marginRight: 3.1
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 3.1,
   },
   gameText: {
-    color: brightGreen
+    color: brightGreen,
   },
   gameError: {
-    color: "red"
+    color: 'red',
   },
   dpad_button: {
     height: 56,
-    width: 56
+    width: 56,
   },
   mid_row: {
-    flexDirection: "row"
-  }
+    flexDirection: 'row',
+  },
 });
