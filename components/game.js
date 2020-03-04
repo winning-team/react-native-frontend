@@ -1,23 +1,67 @@
-import React, { useEffect, useState } from 'react';
-import Dpad from '../assets/dpad.svg';
+import React, { useEffect, useState } from "react";
+import Dpad from "../assets/dpad.svg";
+import Map from "../assets/yeetusmappymaps.svg";
+import Pusher from "pusher-js/react-native";
+import { PUSHER_KEY, PUSHER_CLUSTER } from "react-native-dotenv";
 import {
   StyleSheet,
   View,
   Text,
   TouchableHighlight,
-  Dimensions,
-} from 'react-native';
-import { axiosWithAuth } from './axiosWithAuth';
-import { background, brightGreen } from '../styles';
-import { Message } from './message';
+  Dimensions
+} from "react-native";
+import { axiosWithAuth } from "./axiosWithAuth";
+import { background, brightGreen, lightGreen } from "../styles";
+import { Actions } from "react-native-router-flux";
 
 export default function Game() {
   const [roomDescription, setRoomDescription] = useState(null);
   const [roomTitle, setRoomTitle] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [playersInRoom, setPlayersInRoom] = useState(null);
+  const [roomId, setRoomId] = useState(null);
+  const [messages, setMessages] = useState([]);
+
+  const pusher = new Pusher(PUSHER_KEY, {
+    cluster: PUSHER_CLUSTER,
+    forceTLS: true
+  });
+
+  useEffect(() => {
+    if (roomId) {
+      const channel = pusher.subscribe(`room_${roomId}`);
+      channel.bind(`room_${roomId}_event`, function({ message }) {
+        setMessages(m => m.concat(message));
+      });
+    }
+  }, [roomId]);
+
+  useEffect(() => {
+    if (!roomDescription) {
+      axiosWithAuth().then(axios => {
+        axios
+          .get("api/adv/init/")
+          .then(function({ data }) {
+            if (data) {
+              const { title, description, players, room_id } = data;
+              setRoomTitle(title);
+              setRoomDescription(description);
+              setPlayersInRoom(players);
+              setRoomId(room_id);
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      });
+    }
+  });
+
+  useEffect(() => {
+    console.log(messages);
+  }, [messages]);
 
   function Move(dir) {
-    console.log(dir);
     axiosWithAuth().then(axios => {
       axios
         .post('api/adv/move/', {
@@ -26,7 +70,7 @@ export default function Game() {
         .then(function({ data }) {
           if (data) {
             console.log(data);
-            const { title, description, error_msg } = data;
+            const { title, description, error_msg, players, room_id } = data;
             if (error_msg) {
               setErrorMessage(error_msg);
             } else {
@@ -34,6 +78,8 @@ export default function Game() {
             }
             setRoomTitle(title);
             setRoomDescription(description);
+            setPlayersInRoom(players);
+            setRoomId(room_id);
           }
         })
         .catch(function(error) {
@@ -46,6 +92,12 @@ export default function Game() {
       <View style={styles.game_response_text}>
         <Text style={styles.gameText}>Room name: {roomTitle}</Text>
         <Text style={styles.gameText}>Room description: {roomDescription}</Text>
+        {playersInRoom !== null && (
+          <Text style={styles.gameText}>
+            Other players in room:{" "}
+            {playersInRoom.length ? playersInRoom.length.toString() : 0}
+          </Text>
+        )}
         {errorMessage && (
           <Text style={styles.gameError}>Error: {errorMessage}</Text>
         )}
@@ -54,14 +106,19 @@ export default function Game() {
         <Message />
       </View>
       <View style={styles.dpad}>
-        <Dpad width={250} height={250} />
+        <Dpad fill={lightGreen} width={250} height={250} />
       </View>
       <View style={styles.dpad_overlay}>
         {/* up */}
         <TouchableHighlight
           onPress={() => Move('n')}
           style={styles.dpad_button}
+<<<<<<< HEAD
           underlayColor='rgba(0,0,0,0.2)'>
+=======
+          underlayColor='rgba(0,0,0,0.3)'
+        >
+>>>>>>> 1669783264eaed1b382410dab84818778390a35e
           <View />
         </TouchableHighlight>
         <View style={styles.mid_row}>
@@ -69,7 +126,12 @@ export default function Game() {
           <TouchableHighlight
             onPress={() => Move('w')}
             style={styles.dpad_button}
+<<<<<<< HEAD
             underlayColor='rgba(0,0,0,0.2)'>
+=======
+            underlayColor='rgba(0,0,0,0.3)'
+          >
+>>>>>>> 1669783264eaed1b382410dab84818778390a35e
             <View />
           </TouchableHighlight>
           {/* spacing */}
@@ -78,7 +140,12 @@ export default function Game() {
           <TouchableHighlight
             onPress={() => Move('e')}
             style={styles.dpad_button}
+<<<<<<< HEAD
             underlayColor='rgba(0,0,0,0.2)'>
+=======
+            underlayColor='rgba(0,0,0,0.3)'
+          >
+>>>>>>> 1669783264eaed1b382410dab84818778390a35e
             <View />
           </TouchableHighlight>
         </View>
@@ -86,10 +153,22 @@ export default function Game() {
         <TouchableHighlight
           onPress={() => Move('s')}
           style={styles.dpad_button}
+<<<<<<< HEAD
           underlayColor='rgba(0,0,0,0.2)'>
+=======
+          underlayColor='rgba(0,0,0,0.3)'
+        >
+>>>>>>> 1669783264eaed1b382410dab84818778390a35e
           <View />
         </TouchableHighlight>
       </View>
+      <TouchableHighlight
+        style={styles.map}
+        onPress={() => Actions.Map()}
+        underlayColor='rgba(0,0,0,0.3)'
+      >
+        <Map fill={lightGreen} />
+      </TouchableHighlight>
     </View>
   );
 }
@@ -138,8 +217,26 @@ const styles = StyleSheet.create({
   dpad_button: {
     height: 56,
     width: 56,
+<<<<<<< HEAD
   },
   mid_row: {
     flexDirection: 'row',
   },
+=======
+    borderRadius: 18
+  },
+  mid_row: {
+    flexDirection: "row"
+  },
+  map: {
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+    width: 80,
+    height: 80,
+    bottom: 16,
+    right: 16
+  }
+>>>>>>> 1669783264eaed1b382410dab84818778390a35e
 });

@@ -7,17 +7,19 @@ import * as SecureStore from 'expo-secure-store';
 import { axiosWithAuth } from './axiosWithAuth';
 import { Input, Button } from 'react-native-elements';
 import { background, buttonBg, lightGreen, brightGreen } from '../styles';
+import { SOMETHING } from 'react-native-dotenv';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
   const [message, setMessage] = useState('start');
+  console.log(SOMETHING);
 
   const handleSubmit = async () => {
     try {
       const { data } = await axios.post(
-        'https://83f4615b.ngrok.io/api/login/',
+        'https://50489f90.ngrok.io/api/login/',
         {
           username,
           password,
