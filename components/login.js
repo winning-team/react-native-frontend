@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
-import Dpad from "../assets/dpad.svg"
+import Dpad from "../assets/dpad.svg";
 import styled from "styled-components";
 import axios from "axios";
 import * as SecureStore from "expo-secure-store";
@@ -11,13 +11,12 @@ import { background, buttonBg, lightGreen, brightGreen } from "../styles";
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState("");
   const [message, setMessage] = useState("start");
 
   const handleSubmit = async () => {
     try {
       const { data } = await axios.post(
-        "https://50489f90.ngrok.io/api/login/",
+        "https://5d0cdb07.ngrok.io/api/login/",
         {
           username,
           password

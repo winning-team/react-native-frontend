@@ -8,7 +8,7 @@ export const axiosWithAuth = async () => {
       throw "Token not found";
     }
     return axios.create({
-      baseURL: "https://50489f90.ngrok.io/",
+      baseURL: "https://5d0cdb07.ngrok.io/",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Token ${token}`
