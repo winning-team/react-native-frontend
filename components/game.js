@@ -1,18 +1,19 @@
-import React, { useEffect, useState } from "react";
-import Dpad from "../assets/dpad.svg";
-import Map from "../assets/yeetusmappymaps.svg";
-import Pusher from "pusher-js/react-native";
-import { PUSHER_KEY, PUSHER_CLUSTER } from "react-native-dotenv";
+import React, { useEffect, useState } from 'react';
+import Dpad from '../assets/dpad.svg';
+import Map from '../assets/yeetusmappymaps.svg';
+import Pusher from 'pusher-js/react-native';
+import { PUSHER_KEY, PUSHER_CLUSTER } from 'react-native-dotenv';
 import {
   StyleSheet,
   View,
   Text,
   TouchableHighlight,
-  Dimensions
-} from "react-native";
-import { axiosWithAuth } from "./axiosWithAuth";
-import { background, brightGreen, lightGreen } from "../styles";
-import { Actions } from "react-native-router-flux";
+  Dimensions,
+} from 'react-native';
+import { axiosWithAuth } from './axiosWithAuth';
+import { background, brightGreen, lightGreen } from '../styles';
+import { Actions } from 'react-native-router-flux';
+import Message from './message';
 
 export default function Game() {
   const [roomDescription, setRoomDescription] = useState(null);
@@ -24,7 +25,7 @@ export default function Game() {
 
   const pusher = new Pusher(PUSHER_KEY, {
     cluster: PUSHER_CLUSTER,
-    forceTLS: true
+    forceTLS: true,
   });
 
   useEffect(() => {
@@ -40,7 +41,7 @@ export default function Game() {
     if (!roomDescription) {
       axiosWithAuth().then(axios => {
         axios
-          .get("api/adv/init/")
+          .get('api/adv/init/')
           .then(function({ data }) {
             if (data) {
               const { title, description, players, room_id } = data;
@@ -94,7 +95,7 @@ export default function Game() {
         <Text style={styles.gameText}>Room description: {roomDescription}</Text>
         {playersInRoom !== null && (
           <Text style={styles.gameText}>
-            Other players in room:{" "}
+            Other players in room:{' '}
             {playersInRoom.length ? playersInRoom.length.toString() : 0}
           </Text>
         )}
@@ -102,7 +103,7 @@ export default function Game() {
           <Text style={styles.gameError}>Error: {errorMessage}</Text>
         )}
       </View>
-      <View>
+      <View style={styles.message}>
         <Message />
       </View>
       <View style={styles.dpad}>
@@ -113,12 +114,7 @@ export default function Game() {
         <TouchableHighlight
           onPress={() => Move('n')}
           style={styles.dpad_button}
-<<<<<<< HEAD
-          underlayColor='rgba(0,0,0,0.2)'>
-=======
-          underlayColor='rgba(0,0,0,0.3)'
-        >
->>>>>>> 1669783264eaed1b382410dab84818778390a35e
+          underlayColor='rgba(0,0,0,0.3)'>
           <View />
         </TouchableHighlight>
         <View style={styles.mid_row}>
@@ -126,12 +122,7 @@ export default function Game() {
           <TouchableHighlight
             onPress={() => Move('w')}
             style={styles.dpad_button}
-<<<<<<< HEAD
-            underlayColor='rgba(0,0,0,0.2)'>
-=======
-            underlayColor='rgba(0,0,0,0.3)'
-          >
->>>>>>> 1669783264eaed1b382410dab84818778390a35e
+            underlayColor='rgba(0,0,0,0.3)'>
             <View />
           </TouchableHighlight>
           {/* spacing */}
@@ -140,12 +131,7 @@ export default function Game() {
           <TouchableHighlight
             onPress={() => Move('e')}
             style={styles.dpad_button}
-<<<<<<< HEAD
-            underlayColor='rgba(0,0,0,0.2)'>
-=======
-            underlayColor='rgba(0,0,0,0.3)'
-          >
->>>>>>> 1669783264eaed1b382410dab84818778390a35e
+            underlayColor='rgba(0,0,0,0.3)'>
             <View />
           </TouchableHighlight>
         </View>
@@ -153,20 +139,14 @@ export default function Game() {
         <TouchableHighlight
           onPress={() => Move('s')}
           style={styles.dpad_button}
-<<<<<<< HEAD
-          underlayColor='rgba(0,0,0,0.2)'>
-=======
-          underlayColor='rgba(0,0,0,0.3)'
-        >
->>>>>>> 1669783264eaed1b382410dab84818778390a35e
+          underlayColor='rgba(0,0,0,0.3)'>
           <View />
         </TouchableHighlight>
       </View>
       <TouchableHighlight
         style={styles.map}
         onPress={() => Actions.Map()}
-        underlayColor='rgba(0,0,0,0.3)'
-      >
+        underlayColor='rgba(0,0,0,0.3)'>
         <Map fill={lightGreen} />
       </TouchableHighlight>
     </View>
@@ -195,6 +175,11 @@ const styles = StyleSheet.create({
   game_message_text: {
     flex: 3,
   },
+  message: {
+    flex: 6,
+    width: '100%',
+    height: 50,
+  },
   dpad: {
     position: 'absolute',
     bottom: -37,
@@ -217,26 +202,19 @@ const styles = StyleSheet.create({
   dpad_button: {
     height: 56,
     width: 56,
-<<<<<<< HEAD
+    borderRadius: 18,
   },
   mid_row: {
     flexDirection: 'row',
   },
-=======
-    borderRadius: 18
-  },
-  mid_row: {
-    flexDirection: "row"
-  },
   map: {
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 50,
     width: 80,
     height: 80,
     bottom: 16,
-    right: 16
-  }
->>>>>>> 1669783264eaed1b382410dab84818778390a35e
+    right: 16,
+  },
 });
