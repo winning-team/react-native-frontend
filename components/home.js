@@ -13,16 +13,6 @@ export default class Home extends React.Component {
         <Text style={styles.text}>Gamey McGame Face</Text>
         <ButtonView>
           <Button
-            title='Map'
-            titleStyle={styles.title}
-            buttonStyle={styles.buttonStyle}
-            onPress={() => {
-              Actions.Map();
-            }}
-          />
-        </ButtonView>
-        <ButtonView>
-          <Button
             title='Game'
             titleStyle={styles.title}
             buttonStyle={styles.buttonStyle}

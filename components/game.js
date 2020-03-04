@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Dpad from "../assets/dpad.svg";
+import Map from "../assets/yeetusmappymaps.svg";
 import {
   StyleSheet,
   View,
@@ -9,6 +10,7 @@ import {
 } from "react-native";
 import { axiosWithAuth } from "./axiosWithAuth";
 import { background, brightGreen } from "../styles";
+import { Actions } from "react-native-router-flux";
 
 export default function Game() {
   const [roomDescription, setRoomDescription] = useState(null);
@@ -16,7 +18,6 @@ export default function Game() {
   const [errorMessage, setErrorMessage] = useState(null);
 
   function Move(dir) {
-    console.log(dir);
     axiosWithAuth().then(axios => {
       axios
         .post("api/adv/move/", {
@@ -90,6 +91,9 @@ export default function Game() {
           <View />
         </TouchableHighlight>
       </View>
+      <TouchableHighlight style={styles.map} onPress={() => Actions.Map()} underlayColor='rgba(0,0,0,0.2)'>
+        <Map/>
+      </TouchableHighlight>
     </View>
   );
 }
@@ -138,5 +142,15 @@ const styles = StyleSheet.create({
   },
   mid_row: {
     flexDirection: "row"
+  },
+  map:{
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 40,
+    width: 80,
+    height: 80,
+    bottom: 16,
+    right: 16,
   }
 });

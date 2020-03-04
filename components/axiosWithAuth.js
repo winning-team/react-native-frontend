@@ -5,7 +5,7 @@ export const axiosWithAuth = async () => {
   try {
     const token = await SecureStore.getItemAsync("token");
     return axios.create({
-      baseURL: " https://83f4615b.ngrok.io/",
+      baseURL: "https://50489f90.ngrok.io/",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Token ${token}`
