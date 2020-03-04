@@ -4,8 +4,11 @@ import * as SecureStore from "expo-secure-store";
 export const axiosWithAuth = async () => {
   try {
     const token = await SecureStore.getItemAsync("token");
+    if (!token) {
+      throw "Token not found";
+    }
     return axios.create({
-      baseURL: " https://83f4615b.ngrok.io/",
+      baseURL: "https://83f4615b.ngrok.io/",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Token ${token}`

@@ -14,6 +14,28 @@ export default function Game() {
   const [roomDescription, setRoomDescription] = useState(null);
   const [roomTitle, setRoomTitle] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [playersInRoom, setPlayersInRoom] = useState(null);
+
+  useEffect(() => {
+    if (!roomDescription) {
+      axiosWithAuth().then(axios => {
+        axios
+          .get("api/adv/init/")
+          .then(function({ data }) {
+            if (data) {
+              console.log(data);
+              const { title, description, players } = data;
+              setRoomTitle(title);
+              setRoomDescription(description);
+              setPlayersInRoom(players);
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      });
+    }
+  });
 
   function Move(dir) {
     console.log(dir);
@@ -25,7 +47,7 @@ export default function Game() {
         .then(function({ data }) {
           if (data) {
             console.log(data);
-            const { title, description, error_msg } = data;
+            const { title, description, error_msg, players } = data;
             if (error_msg) {
               setErrorMessage(error_msg);
             } else {
@@ -33,6 +55,7 @@ export default function Game() {
             }
             setRoomTitle(title);
             setRoomDescription(description);
+            setPlayersInRoom(players);
           }
         })
         .catch(function(error) {
@@ -45,6 +68,12 @@ export default function Game() {
       <View style={styles.game_response_text}>
         <Text style={styles.gameText}>Room name: {roomTitle}</Text>
         <Text style={styles.gameText}>Room description: {roomDescription}</Text>
+        {playersInRoom !== null && (
+          <Text style={styles.gameText}>
+            Other players in room:{" "}
+            {playersInRoom.length ? playersInRoom.length.toString() : 0}
+          </Text>
+        )}
         {errorMessage && (
           <Text style={styles.gameError}>Error: {errorMessage}</Text>
         )}
