@@ -18,7 +18,7 @@ export default function Login() {
         throw "invalid username/passwords";
       }
       const { data } = await axios.post(
-        "https://50489f90.ngrok.io/api/registration/",
+        "https://5d0cdb07.ngrok.io/api/registration/",
         {
           username,
           password1,
