@@ -8,7 +8,8 @@ import {
   View,
   Text,
   TouchableHighlight,
-  Dimensions
+  Dimensions,
+  Image
 } from "react-native";
 import { axiosWithAuth } from "./axiosWithAuth";
 import { background, brightGreen, lightGreen } from "../styles";
@@ -150,6 +151,35 @@ export default function Game() {
       >
         <Map fill={lightGreen} />
       </TouchableHighlight>
+    
+    {/* Grid */}
+    <View style={styles.grid}>
+      {/* Row 1 */}
+      <View style={styles.row}>
+        {/* Columns */}
+        <View style={styles.box}><Image source={require('../assets/sanic.exe.png')} style={styles.sprite}/></View>
+        <View style={styles.box}></View>
+        <View style={styles.box}></View>
+      </View>
+
+      {/* Row 2 */}
+      <View style={styles.row}>
+        {/* Columns */}
+        <View style={styles.box}></View>
+        <View style={styles.box}></View>
+        <View style={styles.box}></View>
+      </View>
+
+      {/* Row 3 */}
+      <View style={styles.row}>
+        {/* Columns */}
+        <View style={styles.box}></View>
+        <View style={styles.box}></View>
+        <View style={styles.box}></View>
+      </View>
+        
+    </View>
+
     </View>
   );
 }
@@ -209,5 +239,25 @@ const styles = StyleSheet.create({
     height: 80,
     bottom: 16,
     right: 16
+  },
+  grid: {
+    marginTop: 20,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  row: {
+    flexDirection: "row",
+  },
+  box: {
+    height: 100,
+    width: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: 'black'
+  },
+  sprite:{
+    width: 80,
+    height: 80
   }
 });
