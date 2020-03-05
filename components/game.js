@@ -9,6 +9,7 @@ import {
   Text,
   TouchableHighlight,
   Dimensions,
+  Image,
 } from 'react-native';
 import { axiosWithAuth } from './axiosWithAuth';
 import { background, brightGreen, lightGreen } from '../styles';
@@ -103,9 +104,6 @@ export default function Game() {
           <Text style={styles.gameError}>Error: {errorMessage}</Text>
         )}
       </View>
-      <View style={styles.message}>
-        <Message />
-      </View>
       <View style={styles.dpad}>
         <Dpad fill={lightGreen} width={250} height={250} />
       </View>
@@ -149,6 +147,41 @@ export default function Game() {
         underlayColor='rgba(0,0,0,0.3)'>
         <Map fill={lightGreen} />
       </TouchableHighlight>
+
+      {/* Grid */}
+      <View style={styles.grid}>
+        {/* Row 1 */}
+        <View style={styles.row}>
+          {/* Columns */}
+          <View style={styles.box}>
+            <Image
+              source={require('../assets/sanic.exe.png')}
+              style={styles.sprite}
+            />
+          </View>
+          <View style={styles.box}></View>
+          <View style={styles.box}></View>
+        </View>
+
+        {/* Row 2 */}
+        <View style={styles.row}>
+          {/* Columns */}
+          <View style={styles.box}></View>
+          <View style={styles.box}></View>
+          <View style={styles.box}></View>
+        </View>
+
+        {/* Row 3 */}
+        <View style={styles.row}>
+          {/* Columns */}
+          <View style={styles.box}></View>
+          <View style={styles.box}></View>
+          <View style={styles.box}></View>
+        </View>
+      </View>
+      <View style={styles.message}>
+        <Message />
+      </View>
     </View>
   );
 }
@@ -176,9 +209,9 @@ const styles = StyleSheet.create({
     flex: 3,
   },
   message: {
-    flex: 6,
     width: '100%',
-    height: 50,
+    height: 100,
+    paddingTop: 50,
   },
   dpad: {
     position: 'absolute',
@@ -216,5 +249,25 @@ const styles = StyleSheet.create({
     height: 80,
     bottom: 16,
     right: 16,
+  },
+  grid: {
+    marginTop: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+  },
+  box: {
+    height: 100,
+    width: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: 'black',
+  },
+  sprite: {
+    width: 80,
+    height: 80,
   },
 });
