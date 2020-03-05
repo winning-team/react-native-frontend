@@ -18,11 +18,12 @@ export default function Login() {
         throw "invalid username/passwords";
       }
       const { data } = await axios.post(
-        "https://5d0cdb07.ngrok.io/api/registration/",
+        "https://6be60ffc.ngrok.io/api/registration/",
         {
           username,
           password1,
-          password2
+          password2,
+          sprite_id: 1
         }
       );
       if (data && data.key) {

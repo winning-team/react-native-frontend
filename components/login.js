@@ -16,7 +16,7 @@ export default function Login() {
   const handleSubmit = async () => {
     try {
       const { data } = await axios.post(
-        "https://5d0cdb07.ngrok.io/api/login/",
+        "https://6be60ffc.ngrok.io/api/login/",
         {
           username,
           password
