@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -6,7 +6,8 @@ import * as SecureStore from 'expo-secure-store';
 import { Input, Button } from 'react-native-elements';
 import { background, buttonBg, lightGreen, brightGreen } from '../styles';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import King from '../assets/king.svg'
+import King from '../assets/king.svg';
+import {Audio} from 'expo-av';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -14,9 +15,32 @@ export default function Login() {
   const [password2, setPassword2] = useState('');
   const [message, setMessage] = useState('start');
   const [sprite, setSprite] = useState(0);
+  const [music, setMusic] = useState(null);
   const highlight = 'rgba(0,0,0,0.3)'
 
+
+  useEffect(() => {
+    if (music === null){
+      try {
+        const playback = Audio.Sound.createAsync(
+          {uri: "https://p16.muscdn.com/obj/musically-maliva-obj/1616594337002502"},
+          {shouldPlay: true}
+        ).then(
+          ({sound}) => setMusic(sound)
+        )
+      } catch(e) {
+        console.log('error' + e)
+      }
+  }
+  })
+
+  const mute = () => {
+    music.pauseAsync().then(result => {})
+  }
+  
+
   const handleSubmit = async () => {
+    mute()
     try {
       if (!(sprite > 0 && username && password1 === password2)) {
         throw 'invalid username/passwords';
