@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, ScrollView, SafeAreaView } from 'react-native';
-import { Input, Button } from 'react-native-elements';
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
+import { Input, Button, Image } from 'react-native-elements';
 import styled from 'styled-components';
 import {
   lightGreen,
@@ -9,7 +16,8 @@ import {
   background,
 } from '../styles/index';
 import { Overlay } from 'react-native-elements';
-import xIcon from '../assets/xIcon.svg';
+import Xicon from '../assets/xIcon.svg';
+import Plane from '../assets/send_it.svg';
 
 // Display chat box right above the map.
 // Have it only display the last 3 messages
@@ -19,8 +27,9 @@ import xIcon from '../assets/xIcon.svg';
 export default function Message() {
   const [isVisible, setIsvisable] = useState(false);
   const [scrollView, setScrollView] = useState(null);
+  const [text, setText] = useState('');
 
-  var _scrollToBottomY;
+  console.log(text);
 
   return (
     <Container>
@@ -40,11 +49,7 @@ export default function Message() {
         width='80%'
         height='80%'>
         <View style={styles.overlay}>
-          <Button
-            title='X'
-            buttonStyle={styles.BackButton}
-            onPress={() => setIsvisable(false)}
-          />
+          <Xicon onPress={() => setIsvisable(false)} />
           <SafeAreaView style={styles.safeAreaView}>
             <ScrollView
               ref={ref => setScrollView(ref)}
@@ -52,97 +57,92 @@ export default function Message() {
                 scrollView.scrollToEnd({ animated: true });
               }}
               style={styles.scrollView}>
-              <Text>This is the Top</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>Hello Player!!</Text>
-              <Text>This is the End</Text>
+              <Text>This is the Front</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>Hello World!!!!!</Text>
+              <Text>This is the end!!!</Text>
             </ScrollView>
           </SafeAreaView>
-          <Input
-            style={styles.input}
-            placeholder='Say Something!'
-            placeholderTextColor={lightGreen}
-          />
+          <View style={styles.bottomChat}>
+            <Input
+              style={styles.input}
+              placeholder='Say Something!'
+              placeholderTextColor={lightGreen}
+              onChangeText={e => setText(e)}
+            />
+            <TouchableOpacity>
+              <Plane style={styles.Plane} />
+            </TouchableOpacity>
+          </View>
         </View>
       </Overlay>
     </Container>
@@ -158,24 +158,52 @@ const Container = styled.View`
 `;
 
 const styles = StyleSheet.create({
+  inputView: {
+    flexDirection: 'row',
+    height: 50,
+    padding: 2,
+    marginTop: 32,
+    borderBottomColor: 'black',
+    textAlignVertical: 'top',
+    borderWidth: 3,
+    borderRadius: 10,
+    borderStyle: 'solid',
+  },
   scrollView: {
     height: '88%',
+    padding: 2,
+    paddingBottom: 4,
+    marginTop: '2%',
   },
   text: {
-    color: lightGreen,
+    color: brightGreen,
     fontSize: 20,
   },
   BackButton: {
     width: '20%',
+    height: 50,
     alignSelf: 'flex-start',
   },
   buttonStyle: {
     width: '35%',
     marginLeft: '31%',
-    marginTop: '.5%',
+    height: 40,
   },
   overlay: {
     flexDirection: 'column',
     justifyContent: 'space-between',
+  },
+  xIcon: {
+    width: '25%',
+    height: 50,
+  },
+  bottomChat: {
+    flexDirection: 'row',
+    width: '90%',
+  },
+  Plane: {
+    width: 50,
+    height: 50,
+    marginTop: '65%',
   },
 });
