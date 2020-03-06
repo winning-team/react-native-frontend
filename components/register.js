@@ -46,7 +46,7 @@ export default function Login() {
         throw "invalid username/passwords";
       }
       const { data } = await axios.post(
-        "https://9920e1b7.ngrok.io/api/registration/",
+        "https://potycreek.herokuapp.com/api/registration/",
         {
           username,
           password1,

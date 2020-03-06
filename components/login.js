@@ -16,7 +16,7 @@ export default function Login() {
   const handleSubmit = async () => {
     try {
       const { data } = await axios.post(
-        "https://9920e1b7.ngrok.io/api/login/",
+        "https://potycreek.herokuapp.com/api/login/",
         {
           username,
           password
