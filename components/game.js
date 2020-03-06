@@ -405,6 +405,9 @@ export default function Game() {
           </View>
         </View>
       </View>
+      <View style={styles.message}>
+        <Message />
+      </View>
     </View>
   );
 }
@@ -413,15 +416,16 @@ const width = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   container: {
+    width: "100%",
     flex: 1,
     alignItems: "center",
     justifyContent: "flex-start",
     backgroundColor: background
   },
   game_response_text: {
-    width: width - 32,
+    width: "90%",
     padding: 8,
-    marginTop: 32,
+    marginTop: 5,
     borderBottomColor: "black",
     textAlignVertical: "top",
     borderWidth: 3,
@@ -432,17 +436,18 @@ const styles = StyleSheet.create({
     flex: 3
   },
   message: {
-    width: "100%",
-    height: 100,
-    paddingTop: 50
+    width: "90%",
+    height: 100
   },
   dpad: {
     position: "absolute",
+    zIndex: 2,
     bottom: -37,
     left: 0
   },
   dpad_overlay: {
     position: "absolute",
+    zIndex: 2,
     left: 39,
     bottom: 31,
     justifyContent: "center",
@@ -474,7 +479,7 @@ const styles = StyleSheet.create({
     right: 16
   },
   grid: {
-    marginTop: 50,
+    marginTop: 10,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -482,8 +487,8 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   box: {
-    height: 100,
-    width: 100,
+    height: 80,
+    width: 80,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 2,

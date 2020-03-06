@@ -1,19 +1,20 @@
-import React from 'react';
-import { StyleSheet, Text } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-import styled from 'styled-components';
-import * as SecureStore from 'expo-secure-store';
-import { background, buttonBg, brightGreen } from '../styles';
-import { Button } from 'react-native-elements';
+import React from "react";
+import { StyleSheet, Text } from "react-native";
+import { Actions } from "react-native-router-flux";
+import styled from "styled-components";
+import * as SecureStore from "expo-secure-store";
+import { background, buttonBg, brightGreen } from "../styles";
+import { Button } from "react-native-elements";
 
 export default class Home extends React.Component {
   render() {
     return (
       <Container>
-        <Text style={styles.text}>Gamey McGame Face</Text>
+        <Text style={styles.text}>THE LEGEND OF FNU</Text>
+        <Text style={styles.subText}>Journey to Poty Creek</Text>
         <ButtonView>
           <Button
-            title='Game'
+            title='Play'
             titleStyle={styles.title}
             buttonStyle={styles.buttonStyle}
             onPress={() => {
@@ -47,7 +48,7 @@ export default class Home extends React.Component {
             buttonStyle={styles.buttonStyle}
             titleStyle={styles.title}
             onPress={() => {
-              SecureStore.deleteItemAsync('token').then(token => {
+              SecureStore.deleteItemAsync("token").then(token => {
                 console.log(token);
               });
             }}
@@ -73,19 +74,23 @@ const ButtonView = styled.View`
 
 const styles = StyleSheet.create({
   input: {
-    paddingLeft: 20,
+    paddingLeft: 20
   },
   title: {
-    color: brightGreen,
+    color: brightGreen
   },
   buttonStyle: {
-    backgroundColor: buttonBg,
+    backgroundColor: buttonBg
   },
   inputView: {
-    width: '80%',
+    width: "80%"
   },
   text: {
     fontSize: 30,
-    color: brightGreen,
+    color: brightGreen
   },
+  subText: {
+    fontSize: 20,
+    color: brightGreen
+  }
 });

@@ -16,7 +16,7 @@ export default function Login() {
   const handleSubmit = async () => {
     try {
       const { data } = await axios.post(
-        "https://6be60ffc.ngrok.io/api/login/",
+        "https://9920e1b7.ngrok.io/api/login/",
         {
           username,
           password
@@ -67,6 +67,7 @@ export default function Login() {
           label='Password'
           labelStyle={styles.label}
           placeholder='Password'
+          secureTextEntry={true}
           placeholderTextColor={lightGreen}
           leftIcon={{ type: "font-awesome", name: "lock", color: lightGreen }}
           inputStyle={styles.input}

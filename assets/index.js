@@ -6,5 +6,16 @@ import Pikachu from "../assets/pikachu.svg";
 import Snorlax from "../assets/snorlax.svg";
 import Trainer from "../assets/trainer.svg";
 import Sonic from "../assets/sonic.svg";
+import UpArrow from "../assets/upArrow.svg";
 
-export { LinkSprite, Charmander, Dog, King, Pikachu, Snorlax, Trainer, Sonic };
+export {
+  LinkSprite,
+  Charmander,
+  Dog,
+  King,
+  Pikachu,
+  Snorlax,
+  Trainer,
+  Sonic,
+  UpArrow
+};
