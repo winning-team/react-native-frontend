@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TouchableHighlight } from 'react-native';
 import styled from 'styled-components';
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
 import { Input, Button } from 'react-native-elements';
 import { background, buttonBg, lightGreen, brightGreen } from '../styles';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import King from '../assets/king.svg'
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
   const [message, setMessage] = useState('start');
+  const [sprite, setSprite] = useState(0);
+  const highlight = 'rgba(0,0,0,0.3)'
 
   const handleSubmit = async () => {
     try {
-      if (!(username && password1 === password2)) {
+      if (!(sprite > 0 && username && password1 === password2)) {
         throw 'invalid username/passwords';
       }
       const { data } = await axios.post(
@@ -23,6 +27,7 @@ export default function Login() {
           username,
           password1,
           password2,
+          sprite
         },
       );
       if (data && data.key) {
@@ -34,6 +39,16 @@ export default function Login() {
       setMessage('Registration unsuccessful :(');
     }
   };
+
+  const chooseSprite = (sprite_id) => {
+    setSprite(sprite_id)
+  }
+
+  const toggle = (id) => {
+      return sprite == id ? {backgroundColor: highlight}: {}
+  }
+
+  
 
   return (
     <Container>
@@ -68,6 +83,12 @@ export default function Login() {
           secureTextEntry={true}
           inputStyle={styles.input}
         />
+        <Text style={styles.select}>Choose a Character</Text>
+        <ScrollView horizontal={true} style={{height: "40%"}}>
+          <TouchableHighlight onPress = {() => chooseSprite(1)} underlayColor={highlight} style={toggle(1)}>
+            <King height={"100%"} width={200}/>
+          </TouchableHighlight>
+        </ScrollView>
         <Button
           title='Register'
           onPress={() => handleSubmit()}
@@ -110,4 +131,13 @@ const styles = StyleSheet.create({
   message: {
     color: brightGreen,
   },
+  select: {
+    color: brightGreen,
+    fontSize: 18,
+    paddingTop: 5,
+    paddingBottom: 5,
+    textAlign: "center"
+  }
+
+
 });
