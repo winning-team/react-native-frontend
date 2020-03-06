@@ -6,7 +6,8 @@ import * as SecureStore from "expo-secure-store";
 import { Input, Button } from "react-native-elements";
 import { background, buttonBg, lightGreen, brightGreen } from "../styles";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
-import King from "../assets/king.svg";
+import { getSprite } from "./getSprite";
+import spriteData from "../data/sprites.json";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -27,7 +28,7 @@ export default function Login() {
           username,
           password1,
           password2,
-          sprite
+          sprite_id: sprite
         }
       );
       if (data && data.key) {
@@ -81,15 +82,24 @@ export default function Login() {
           secureTextEntry={true}
           inputStyle={styles.input}
         />
-        <Text style={styles.select}>Choose a Character</Text>
-        <ScrollView horizontal={true} style={{ height: "40%" }}>
-          <TouchableHighlight
-            onPress={() => chooseSprite(1)}
-            underlayColor={highlight}
-            style={toggle(1)}
-          >
-            <King height={"100%"} width={200} />
-          </TouchableHighlight>
+        <Text style={styles.select}>Choose a Character:</Text>
+        {sprite !== 0 && (
+          <Text style={styles.select}>{spriteData[sprite - 1].name}</Text>
+        )}
+        <ScrollView horizontal={true} style={{ height: "20%" }}>
+          {[1, 2, 3, 4, 5, 6].map(i => (
+            <TouchableHighlight
+              key={`sprite_${i}`}
+              onPress={() => chooseSprite(i)}
+              underlayColor={highlight}
+              style={{
+                ...toggle(i),
+                ...styles.highlight
+              }}
+            >
+              {getSprite(i, 75)}
+            </TouchableHighlight>
+          ))}
         </ScrollView>
         <Button
           title='Register'
@@ -139,5 +149,11 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     textAlign: "center"
+  },
+  highlight: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 500
   }
 });

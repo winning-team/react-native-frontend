@@ -8,7 +8,7 @@ import {
   View,
   Text,
   TouchableHighlight,
-  Dimensions,
+  ImageBackground,
   Image
 } from "react-native";
 import { axiosWithAuth } from "./axiosWithAuth";
@@ -26,6 +26,10 @@ export default function Game() {
   const [messages, setMessages] = useState([]);
   const [playerX, setPlayerX] = useState(0);
   const [playerY, setPlayerY] = useState(0);
+  const [northPortal, setNorthPortal] = useState(false);
+  const [southPortal, setSouthPortal] = useState(false);
+  const [eastPortal, setEastPortal] = useState(false);
+  const [westPortal, setWestPortal] = useState(false);
   const [state, dispatch] = useReducer(gridReducer, {
     1: [],
     2: [],
@@ -172,6 +176,7 @@ export default function Game() {
       });
       const moveChannel = pusher.subscribe(`move_${roomId}`);
       moveChannel.bind(`move_${roomId}_event`, ({ player }) => {
+        console.log("move message!", player);
         const { x, y, prevX, prevY } = player;
         if (prevX !== undefined || prevY !== undefined) {
           dispatch({ type: "REMOVE_PLAYER", player });
@@ -188,13 +193,28 @@ export default function Game() {
           .get("api/adv/init/")
           .then(function({ data }) {
             if (data) {
-              const { title, description, players, room_id, x, y } = data;
+              const {
+                title,
+                description,
+                players,
+                room_id,
+                x,
+                y,
+                n,
+                s,
+                e,
+                w
+              } = data;
               setRoomTitle(title);
               setRoomDescription(description);
               setPlayersInRoom(players);
               setPlayerX(x);
               setPlayerY(y);
               setRoomId(room_id);
+              setNorthPortal(n > 0);
+              setSouthPortal(s > 0);
+              setEastPortal(e > 0);
+              setWestPortal(w > 0);
 
               for (const player of players) {
                 dispatch({ type: "ADD_PLAYER", player });
@@ -228,7 +248,11 @@ export default function Game() {
               players,
               room_id,
               x,
-              y
+              y,
+              n,
+              s,
+              e,
+              w
             } = data;
             // console.log(x, y);
             if (error_msg) {
@@ -241,6 +265,13 @@ export default function Game() {
             setPlayersInRoom(players);
             setPlayerX(x);
             setPlayerY(y);
+            if (n !== undefined) {
+              setNorthPortal(n > 0);
+              setSouthPortal(s > 0);
+              setEastPortal(e > 0);
+              setWestPortal(w > 0);
+            }
+
             console.log(roomId, room_id);
             if (roomId !== room_id) {
               setRoomId(room_id);
@@ -248,6 +279,7 @@ export default function Game() {
               for (const player of players) {
                 dispatch({ type: "ADD_PLAYER", player });
               }
+              setMessages([]);
             }
           }
         })
@@ -259,19 +291,20 @@ export default function Game() {
   return (
     <View style={styles.container}>
       <View style={styles.game_response_text}>
-        <Text style={styles.gameText}>Room name: {roomTitle}</Text>
-        <Text style={styles.gameText}>Room description: {roomDescription}</Text>
-        {playersInRoom !== null && (
-          <Text style={styles.gameText}>
-            Players in room:{" "}
-            {playersInRoom.length ? playersInRoom.length.toString() : 0}
-          </Text>
-        )}
+        <View style={styles.titlePlayers}>
+          <Text style={styles.gameText}>You are in room {roomTitle}.</Text>
+          {playersInRoom !== null && (
+            <Text style={styles.gameText}>
+              Players in room:{" "}
+              {playersInRoom.length ? playersInRoom.length.toString() : 0}
+            </Text>
+          )}
+        </View>
+        <Text style={styles.gameText}>Description: {roomDescription}</Text>
+
         {roomId !== null && (
           <Text style={styles.gameText}>Room id: {roomId}</Text>
         )}
-        <Text style={styles.gameText}>X position: {playerX}</Text>
-        <Text style={styles.gameText}>Y position: {playerY}</Text>
         {errorMessage && (
           <Text style={styles.gameError}>Error: {errorMessage}</Text>
         )}
@@ -326,93 +359,123 @@ export default function Game() {
       </TouchableHighlight>
 
       {/* Grid */}
-      <View style={styles.grid}>
-        {/* Row 1 */}
-        <View style={styles.row}>
-          {/* Columns */}
-          <View style={styles.box}>
-            {state["1"].length ? (
-              getSprite(state["1"][state["1"].length - 1].sprite_id, 50)
-            ) : (
-              <></>
-            )}
-          </View>
-          <View style={styles.box}>
-            {state["2"].length ? (
-              getSprite(state["2"][state["2"].length - 1].sprite_id, 50)
-            ) : (
-              <></>
-            )}
-          </View>
-          <View style={styles.box}>
-            {state["3"].length ? (
-              getSprite(state["3"][state["3"].length - 1].sprite_id, 50)
-            ) : (
-              <></>
-            )}
-          </View>
-        </View>
+      <View style={styles.gameView}>
+        <ImageBackground
+          source={require("../assets/floor.jpg")}
+          style={{ width: 240, height: 240 }}
+        >
+          <View style={styles.grid}>
+            {/* Row 1 */}
+            <View style={styles.row}>
+              {/* Columns */}
+              <View style={styles.box}>
+                {state["1"].length ? (
+                  getSprite(state["1"][state["1"].length - 1].sprite_id, 50)
+                ) : (
+                  <></>
+                )}
+              </View>
+              <View style={styles.box}>
+                {state["2"].length ? (
+                  getSprite(state["2"][state["2"].length - 1].sprite_id, 50)
+                ) : (
+                  <></>
+                )}
+              </View>
+              <View style={styles.box}>
+                {state["3"].length ? (
+                  getSprite(state["3"][state["3"].length - 1].sprite_id, 50)
+                ) : (
+                  <></>
+                )}
+              </View>
+            </View>
 
-        {/* Row 2 */}
-        <View style={styles.row}>
-          {/* Columns */}
-          <View style={styles.box}>
-            {state["4"].length ? (
-              getSprite(state["4"][state["4"].length - 1].sprite_id, 50)
-            ) : (
-              <></>
-            )}
-          </View>
-          <View style={styles.box}>
-            {state["5"].length ? (
-              getSprite(state["5"][state["5"].length - 1].sprite_id, 50)
-            ) : (
-              <></>
-            )}
-          </View>
-          <View style={styles.box}>
-            {state["6"].length ? (
-              getSprite(state["6"][state["6"].length - 1].sprite_id, 50)
-            ) : (
-              <></>
-            )}
-          </View>
-        </View>
+            {/* Row 2 */}
+            <View style={styles.row}>
+              {/* Columns */}
+              <View style={styles.box}>
+                {state["4"].length ? (
+                  getSprite(state["4"][state["4"].length - 1].sprite_id, 50)
+                ) : (
+                  <></>
+                )}
+              </View>
+              <View style={styles.box}>
+                {state["5"].length ? (
+                  getSprite(state["5"][state["5"].length - 1].sprite_id, 50)
+                ) : (
+                  <></>
+                )}
+              </View>
+              <View style={styles.box}>
+                {state["6"].length ? (
+                  getSprite(state["6"][state["6"].length - 1].sprite_id, 50)
+                ) : (
+                  <></>
+                )}
+              </View>
+            </View>
 
-        {/* Row 3 */}
-        <View style={styles.row}>
-          {/* Columns */}
-          <View style={styles.box}>
-            {state["7"].length ? (
-              getSprite(state["7"][state["7"].length - 1].sprite_id, 50)
-            ) : (
-              <></>
-            )}
+            {/* Row 3 */}
+            <View style={styles.row}>
+              {/* Columns */}
+              <View style={styles.box}>
+                {state["7"].length ? (
+                  getSprite(state["7"][state["7"].length - 1].sprite_id, 50)
+                ) : (
+                  <></>
+                )}
+              </View>
+              <View style={styles.box}>
+                {state["8"].length ? (
+                  getSprite(state["8"][state["8"].length - 1].sprite_id, 50)
+                ) : (
+                  <></>
+                )}
+              </View>
+              <View style={styles.box}>
+                {state["9"].length ? (
+                  getSprite(state["9"][state["9"].length - 1].sprite_id, 50)
+                ) : (
+                  <></>
+                )}
+              </View>
+            </View>
           </View>
-          <View style={styles.box}>
-            {state["8"].length ? (
-              getSprite(state["8"][state["8"].length - 1].sprite_id, 50)
-            ) : (
-              <></>
-            )}
-          </View>
-          <View style={styles.box}>
-            {state["9"].length ? (
-              getSprite(state["9"][state["9"].length - 1].sprite_id, 50)
-            ) : (
-              <></>
-            )}
-          </View>
-        </View>
+        </ImageBackground>
+        {/* Portals */}
+        {northPortal && (
+          <ImageBackground
+            source={require("../assets/northPortal.png")}
+            style={styles.northPortal}
+          />
+        )}
+        {southPortal && (
+          <ImageBackground
+            source={require("../assets/southPortal.png")}
+            style={styles.southPortal}
+          />
+        )}
+        {eastPortal && (
+          <ImageBackground
+            source={require("../assets/eastPortal.png")}
+            style={styles.eastPortal}
+          />
+        )}
+        {westPortal && (
+          <ImageBackground
+            source={require("../assets/westPortal.png")}
+            style={styles.westPortal}
+          />
+        )}
       </View>
       <View style={styles.message}>
-        <Message />
+        <Message messages={messages} />
       </View>
     </View>
   );
 }
-
-const width = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   container: {
@@ -424,8 +487,7 @@ const styles = StyleSheet.create({
   },
   game_response_text: {
     width: "90%",
-    padding: 8,
-    marginTop: 5,
+    padding: 3,
     borderBottomColor: "black",
     textAlignVertical: "top",
     borderWidth: 3,
@@ -479,7 +541,6 @@ const styles = StyleSheet.create({
     right: 16
   },
   grid: {
-    marginTop: 10,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -490,12 +551,52 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
     alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 2,
-    borderColor: "black"
+    justifyContent: "center"
   },
   sprite: {
     width: 80,
     height: 80
+  },
+  titlePlayers: {
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  gameView: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    minHeight: "47%"
+  },
+  northPortal: {
+    resizeMode: "contain",
+    position: "absolute",
+    bottom: 270,
+    zIndex: 30,
+    width: 100,
+    minHeight: 50
+  },
+  southPortal: {
+    resizeMode: "contain",
+    position: "absolute",
+    top: 270,
+    zIndex: 30,
+    width: 100,
+    minHeight: 50
+  },
+  eastPortal: {
+    resizeMode: "contain",
+    position: "absolute",
+    zIndex: 30,
+    left: 230,
+    width: 50,
+    minHeight: 100
+  },
+  westPortal: {
+    resizeMode: "contain",
+    position: "absolute",
+    right: 230,
+    zIndex: 30,
+    width: 50,
+    minHeight: 100
   }
 });

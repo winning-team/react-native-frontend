@@ -9,39 +9,60 @@ import {
 } from "react-native";
 import { Input, Button, Image } from "react-native-elements";
 import styled from "styled-components";
-import {
-  lightGreen,
-  brightGreen,
-  brightRed,
-  background
-} from "../styles/index";
+import { lightGreen, brightGreen, background } from "../styles/index";
 import { Overlay } from "react-native-elements";
 import Xicon from "../assets/xIcon.svg";
 import Plane from "../assets/send_it.svg";
 import { UpArrow } from "../assets";
+import { axiosWithAuth } from "./axiosWithAuth";
 
 // Display chat box right above the map.
 // Have it only display the last 3 messages
 // Messages can be when a player enters and players talk to each other.
 // When expanded they can type to talk to the player and see all previous messages with scrolling
 
-export default function Message() {
+export default function Message({ messages }) {
   const [isVisible, setIsvisable] = useState(false);
   const [scrollView, setScrollView] = useState(null);
   const [text, setText] = useState("");
 
   console.log(text);
 
+  const sendMessage = () => {
+    if (text.length > 1) {
+      axiosWithAuth().then(axios => {
+        axios
+          .post("api/adv/say/", { message: text })
+          .then(({ data }) => {
+            console.log(data);
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      });
+    }
+    setText("");
+  };
+
   return (
     <Container>
-      <View style={styles.inputView}>
-        <Text style={styles.text}>Someone entered the room!</Text>
-        <TouchableOpacity
-          style={styles.openMessages}
-          onPress={() => setIsvisable(true)}
-        >
-          <UpArrow width={20} fill={brightGreen} />
-        </TouchableOpacity>
+      <View style={styles.inputContainer}>
+        <View style={styles.inputView}>
+          <Text style={styles.text}>
+            >{" "}
+            {messages.length > 0
+              ? messages[messages.length - 1]
+              : "No messages yet..."}
+          </Text>
+        </View>
+        <View>
+          <TouchableOpacity
+            style={styles.openMessages}
+            onPress={() => setIsvisable(true)}
+          >
+            <UpArrow width={20} fill={brightGreen} />
+          </TouchableOpacity>
+        </View>
       </View>
       <Overlay
         style={styles.overlay}
@@ -60,7 +81,7 @@ export default function Message() {
             </View>
             <Xicon onPress={() => setIsvisable(false)} fill={brightGreen} />
           </View>
-          <SafeAreaView style={styles.safeAreaView}>
+          <View style={styles.underTitle}>
             <ScrollView
               ref={ref => setScrollView(ref)}
               onContentSizeChange={(contentWidth, contentHeight) => {
@@ -69,20 +90,35 @@ export default function Message() {
               style={styles.scrollView}
             >
               <View>
-                <Text style={styles.message}>> This is the Front</Text>
+                {messages.length > 0 ? (
+                  messages.map((message, i) => (
+                    <Text key={i} style={styles.message}>
+                      > {message}
+                    </Text>
+                  ))
+                ) : (
+                  <Text style={styles.message}>
+                    > There is nothing to show!
+                  </Text>
+                )}
               </View>
             </ScrollView>
-          </SafeAreaView>
-          <View style={styles.bottomChat}>
-            <Input
-              style={styles.input}
-              placeholder='Say Something!'
-              placeholderTextColor={brightGreen}
-              onChangeText={e => setText(e)}
-            />
-            <TouchableOpacity>
-              <Plane style={styles.Plane} fill={brightGreen} />
-            </TouchableOpacity>
+            <View style={styles.bottomChat}>
+              <Input
+                inputStyle={styles.input}
+                value={text}
+                placeholder='Say Something!'
+                placeholderTextColor={brightGreen}
+                onChangeText={e => setText(e)}
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  sendMessage();
+                }}
+              >
+                <Plane style={styles.Plane} fill={brightGreen} />
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </Overlay>
@@ -101,7 +137,7 @@ const Container = styled.View`
 const styles = StyleSheet.create({
   inputView: {
     flexDirection: "row",
-    width: "100%",
+    width: "90%",
     height: 50,
     padding: 2,
     borderBottomColor: "black",
@@ -109,16 +145,24 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 10,
     borderStyle: "solid",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  inputContainer: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
     justifyContent: "space-between"
   },
   scrollView: {
-    height: "88%",
+    maxHeight: "85%",
     padding: 10,
     paddingBottom: 4,
     marginTop: "2%",
     borderColor: brightGreen,
     borderWidth: 1,
-    borderRadius: 5
+    borderRadius: 5,
+    marginTop: 40
   },
   text: {
     color: brightGreen,
@@ -126,11 +170,6 @@ const styles = StyleSheet.create({
   },
   message: {
     color: brightGreen
-  },
-  buttonStyle: {
-    width: "35%",
-    marginLeft: "31%",
-    height: 40
   },
   overlay: {
     flexDirection: "column",
@@ -151,7 +190,10 @@ const styles = StyleSheet.create({
   },
   openMessages: {
     alignSelf: "center",
-    paddingRight: 10
+    padding: 10,
+    borderWidth: 3,
+    borderRadius: 10,
+    borderStyle: "solid"
   },
   messagesTop: {
     flex: 1,
@@ -159,5 +201,15 @@ const styles = StyleSheet.create({
   },
   messagesTopTitle: {
     width: "90%"
+  },
+  input: {
+    color: brightGreen,
+    paddingLeft: 20,
+    width: "90%"
+  },
+  underTitle: {
+    height: "100%",
+
+    flexDirection: "column"
   }
 });

@@ -5,7 +5,6 @@ import {
   King,
   LinkSprite,
   Pikachu,
-  Snorlax,
   Sonic,
   Trainer
 } from "../assets";
@@ -23,11 +22,7 @@ export const getSprite = (spriteId, width) => {
     case 5:
       return <Pikachu width={width} />;
     case 6:
-      return <Snorlax width={width} />;
-    case 7:
       return <Sonic width={width} />;
-    case 8:
-      return <Trainer width={width} />;
     default:
       return <Sonic width={width} />;
   }

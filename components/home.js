@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, ImageBackground } from "react-native";
 import { Actions } from "react-native-router-flux";
 import styled from "styled-components";
 import * as SecureStore from "expo-secure-store";
@@ -10,6 +10,15 @@ export default class Home extends React.Component {
   render() {
     return (
       <Container>
+        <ImageBackground
+          source={require("../assets/pbBananerrs.png")}
+          style={{
+            width: 250,
+            height: 200,
+            resizeMode: "contain",
+            marginBottom: 20
+          }}
+        />
         <Text style={styles.text}>THE LEGEND OF FNU</Text>
         <Text style={styles.subText}>Journey to Poty Creek</Text>
         <ButtonView>
