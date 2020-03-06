@@ -15,6 +15,7 @@ import { axiosWithAuth } from "./axiosWithAuth";
 import { background, brightGreen, lightGreen } from "../styles";
 import { Actions } from "react-native-router-flux";
 import { getSprite } from "./getSprite";
+import Message from "./message";
 
 export default function Game() {
   const [roomDescription, setRoomDescription] = useState(null);
@@ -427,6 +428,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderStyle: "solid"
   },
+  game_message_text: {
+    flex: 3
+  },
+  message: {
+    width: "100%",
+    height: 100,
+    paddingTop: 50
+  },
   dpad: {
     position: "absolute",
     bottom: -37,
@@ -465,7 +474,7 @@ const styles = StyleSheet.create({
     right: 16
   },
   grid: {
-    marginTop: 20,
+    marginTop: 50,
     alignItems: "center",
     justifyContent: "center"
   },
